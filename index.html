@@ -3,12 +3,34 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>AR Перегляд — Модель</title>
+  <title>Підставка 3D / AR</title>
   <script type="module" src="https://unpkg.com/@google/model-viewer@3.3.0/dist/model-viewer.min.js"></script>
   <style>
-    body { text-align:center; background:#f5f5f5; font-family:sans-serif; margin:0; }
-    model-viewer { width:100%; height:60vh; border-radius:12px; margin-top:20px; background:#ddd; }
-    .btn { display:inline-block; margin-top:20px; padding:10px 20px; background:#007bff; color:white; border-radius:8px; text-decoration:none; }
+    body {
+      text-align:center;
+      background:#f5f5f5;
+      font-family:sans-serif;
+      margin:0;
+      padding:20px;
+    }
+    model-viewer {
+      width:100%;
+      max-width:500px;
+      height:400px;
+      border-radius:12px;
+      background:#ddd;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      margin: 20px auto;
+    }
+    .btn {
+      display:inline-block;
+      margin-top:20px;
+      padding:10px 20px;
+      background:#007bff;
+      color:white;
+      border-radius:8px;
+      text-decoration:none;
+    }
   </style>
 </head>
 <body>
@@ -16,7 +38,7 @@
   <h2>Підставка 3D / AR</h2>
 
   <model-viewer
-    src="https://raw.githubusercontent.com/devsoftsr/models/main/3DModel.glb"
+    src="3DModel.glb"
     alt="3D модель підставки"
     ar
     ar-modes="webxr scene-viewer quick-look"
@@ -24,7 +46,14 @@
     auto-rotate>
   </model-viewer>
 
-  <p>📱 Відскануйте QR-код, щоб переглянути у своєму інтер'єрі:</p>
-  <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://devsoftsr.github.io/models/" alt="QR для AR" />
+  <p>📱 Хочете відкрити модель у своєму інтер'єрі? Відскануйте QR-код нижче:</p>
+
+  <!-- QR-код ведёт на ar.html -->
+  <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://devsoftsr.github.io/models/ar.html" alt="QR для AR" />
+
+  <div>
+    <a href="https://mbmmyhome.ua/product/pidstavka-z-obertom-360-s-kp-11-s" class="btn">← Повернутись до товару</a>
+  </div>
+
 </body>
 </html>
