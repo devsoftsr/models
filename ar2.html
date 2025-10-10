@@ -61,7 +61,7 @@
       controller.addEventListener('select', onSelect);
       scene.add(controller);
 
-      document.body.appendChild(ARButton.createButton(renderer, { requiredFeatures: ['hit-test'] }));
+      document.body.appendChild(ARButton.createButton(renderer, { optionalFeatures: ['hit-test'] }));
 
       window.addEventListener('resize', () => {
         camera.aspect = window.innerWidth / window.innerHeight;
@@ -147,3 +147,4 @@
   </script>
 </body>
 </html>
+
