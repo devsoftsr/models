@@ -25,10 +25,12 @@
     // Получаем модель из URL
     const urlParams = new URLSearchParams(window.location.search);
     const modelSrc = urlParams.get('model') || 'chair_horizontal.glb';
+    console.log('Будет загружена модель:', modelSrc);
 
     // Определяем placement по имени файла
     if(modelSrc.includes('_vertical')) placement = 'vertical';
     else placement = 'horizontal';
+    console.log('Placement:', placement);
 
     init();
     animate();
@@ -46,9 +48,10 @@
       light.position.set(0.5, 1, 0.25);
       scene.add(light);
 
+      // Reticle для позиционирования модели
       reticle = new THREE.Mesh(
         new THREE.RingGeometry(0.08, 0.1, 32).rotateX(-Math.PI/2),
-        new THREE.MeshBasicMaterial({ color: 0x0fff0, side: THREE.DoubleSide })
+        new THREE.MeshBasicMaterial({ color: 0x00ff00, side: THREE.DoubleSide })
       );
       reticle.matrixAutoUpdate = false;
       reticle.visible = false;
@@ -71,16 +74,23 @@
 
     function loadModel(path) {
       const loader = new GLTFLoader();
-      loader.load(path, (gltf) => {
-        model = gltf.scene;
-        // Авто-скейлинг: подгоняем размер по плоскости (максимальная высота ~1 м)
-        const box = new THREE.Box3().setFromObject(model);
-        const size = new THREE.Vector3();
-        box.getSize(size);
-        const maxDim = Math.max(size.x, size.y, size.z);
-        const scale = 1 / maxDim; // масштабируем модель в 1 раз
-        model.scale.setScalar(scale);
-      });
+      loader.load(
+        path,
+        (gltf) => {
+          console.log('Модель загружена:', path);
+          model = gltf.scene;
+
+          // Авто-скейлинг модели под плоскость (максимальная размерность 1 м)
+          const box = new THREE.Box3().setFromObject(model);
+          const size = new THREE.Vector3();
+          box.getSize(size);
+          const maxDim = Math.max(size.x, size.y, size.z);
+          const scale = 1 / maxDim;
+          model.scale.setScalar(scale);
+        },
+        undefined,
+        (error) => { console.error('Ошибка загрузки модели:', error); }
+      );
     }
 
     function onSelect() {
