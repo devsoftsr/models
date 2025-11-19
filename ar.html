@@ -40,7 +40,7 @@
 
     } else if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
       // iOS → Quick Look
-      window.location.href = usdzUrl;
+      window.location.href = usdzUrl + '#';
 
     } else {
       // Десктоп → открываем обычный 3D просмотрщик
@@ -52,4 +52,5 @@
   <p>Відбувається перенаправлення на AR...</p>
 </body>
 </html>
+
 
