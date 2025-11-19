@@ -5,22 +5,45 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>AR Redirect</title>
   <script>
-    // Ссылки на файлы
-    const glbUrl = "https://raw.githubusercontent.com/devsoftsr/models/main/3DModel.glb";
-    const usdzUrl = "https://raw.githubusercontent.com/devsoftsr/models/main/3DModel.usdz";
+    // 1. Читаем параметр model из URL
+    const params = new URLSearchParams(window.location.search);
+    const model = params.get("model") || "default";
 
-    // Определяем устройство
+    // 2. Карта моделей
+    const models = {
+      "slon-22": {
+        glb: "https://raw.githubusercontent.com/devsoftsr/models/main/slon22.glb",
+        usdz: "https://raw.githubusercontent.com/devsoftsr/models/main/slon22.usdz"
+      },
+      "vaza-55": {
+        glb: "https://raw.githubusercontent.com/devsoftsr/models/main/vaza55.glb",
+        usdz: "https://raw.githubusercontent.com/devsoftsr/models/main/vaza55.usdz"
+      },
+      "default": {
+        glb: "https://raw.githubusercontent.com/devsoftsr/models/main/3DModel.glb",
+        usdz: "https://raw.githubusercontent.com/devsoftsr/models/main/3DModel.usdz"
+      }
+    };
+
+    // 3. Берём нужный объект (если нет — default)
+    const glbUrl = models[model]?.glb || models.default.glb;
+    const usdzUrl = models[model]?.usdz || models.default.usdz;
+
+    // 4. Определяем устройство
     const userAgent = navigator.userAgent || navigator.vendor || window.opera;
 
     if (/android/i.test(userAgent)) {
       // Android → Scene Viewer
-      const sceneViewerUrl = `intent://arvr.google.com/scene-viewer/1.0?file=${encodeURIComponent(glbUrl)}&mode=ar_preferred#Intent;scheme=https;package=com.google.ar.core;end;`;
+      const sceneViewerUrl =
+        `intent://arvr.google.com/scene-viewer/1.0?file=${encodeURIComponent(glbUrl)}&mode=ar_preferred#Intent;scheme=https;package=com.google.ar.core;end;`;
       window.location.href = sceneViewerUrl;
+
     } else if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
       // iOS → Quick Look
       window.location.href = usdzUrl;
+
     } else {
-      // Другие устройства → просто открыть 3D модель в браузере
+      // Десктоп → открываем обычный 3D просмотрщик
       window.location.href = "https://devsoftsr.github.io/models/index.html";
     }
   </script>
