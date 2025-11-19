@@ -9,20 +9,20 @@
     const params = new URLSearchParams(window.location.search);
     const model = params.get("model") || "default";
 
-  const models = {
-    "slon-dh-st-22": {
-      glb: "https://raw.githubusercontent.com/devsoftsr/models/main/slon22.glb",
-      usdz: "https://devsoftsr.github.io/models/slon22.usdz"
-    },
-    "cactus": {
-      glb: "https://raw.githubusercontent.com/devsoftsr/models/main/cactus.glb",
-      usdz: "https://devsoftsr.github.io/models/cactus.usdz"
-    },
-    "default": {
-      glb: "https://raw.githubusercontent.com/devsoftsr/models/main/3DModel.glb",
-      usdz: "https://devsoftsr.github.io/models/3DModel.usdz"
-    }
-  };
+const models = {
+  "slon-dh-st-22": {
+    glb: "https://3dmodels-3k7.pages.dev/Models/slon22.glb",
+    usdz: "https://3dmodels-3k7.pages.dev/Models/slon22.usdz"
+  },
+  "cactus": {
+    glb: "https://3dmodels-3k7.pages.dev/Models/cactus.glb",
+    usdz: "https://3dmodels-3k7.pages.dev/Models/cactus.usdz"
+  },
+  "default": {
+    glb: "https://3dmodels-3k7.pages.dev/Models/3DModel.glb",
+    usdz: "https://3dmodels-3k7.pages.dev/Models/3DModel.usdz"
+  }
+};
 
     // 3. Берём нужный объект (если нет — default)
     const glbUrl = models[model]?.glb || models.default.glb;
@@ -51,6 +51,7 @@
   <p>Відбувається перенаправлення на AR...</p>
 </body>
 </html>
+
 
 
 
